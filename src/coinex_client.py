@@ -15,6 +15,8 @@ class CoinExAPIError(RuntimeError):
 
 DEFAULT_ENDPOINTS = {
     "markets": "/spot/market",
+    "trades": "/spot/deals",
+    "ohlcv": "/spot/kline",
     "balance": "/assets/spot/balance",
     "orderbook": "/spot/depth",
     "place_order": "/spot/order",
@@ -183,6 +185,35 @@ class CoinExClient:
 
     def get_markets(self) -> Any:
         return self._request("GET", self.endpoints["markets"], signed=False)
+
+    def get_trades(self, symbol: str, *, limit: int = 50) -> Any:
+        return self._request(
+            "GET",
+            self.endpoints["trades"],
+            params={"market": symbol, "limit": limit},
+            signed=False,
+        )
+
+    def get_ohlcv(
+        self,
+        symbol: str,
+        *,
+        period: str = "1min",
+        limit: int = 200,
+        start_time: Optional[int] = None,
+        end_time: Optional[int] = None,
+    ) -> Any:
+        params: dict[str, Any] = {"market": symbol, "period": period, "limit": limit}
+        if start_time is not None:
+            params["start_time"] = start_time
+        if end_time is not None:
+            params["end_time"] = end_time
+        return self._request(
+            "GET",
+            self.endpoints["ohlcv"],
+            params=params,
+            signed=False,
+        )
 
     def get_balance(self) -> Any:
         return self._request("GET", self.endpoints["balance"], signed=True)

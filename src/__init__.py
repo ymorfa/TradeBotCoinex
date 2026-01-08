@@ -1,5 +1,20 @@
 from .coinex_client import CoinExAPIError, CoinExClient, CoinExSigner
 from .config import Config, ConfigError, Limits, Secrets, load_config
+from .market_data import (
+    InMemoryMarketDataCache,
+    MarketDataCache,
+    MarketDataMonitor,
+    MarketDataPollConfig,
+    NormalizedTrade,
+    OHLCVBar,
+    OrderBookLevel,
+    OrderBookSnapshot,
+    RedisMarketDataCache,
+    normalize_ohlcv,
+    normalize_orderbook,
+    normalize_timeframe,
+    normalize_trades,
+)
 
 __all__ = [
     "CoinExAPIError",
@@ -10,4 +25,17 @@ __all__ = [
     "Limits",
     "Secrets",
     "load_config",
+    "InMemoryMarketDataCache",
+    "MarketDataCache",
+    "MarketDataMonitor",
+    "MarketDataPollConfig",
+    "NormalizedTrade",
+    "OHLCVBar",
+    "OrderBookLevel",
+    "OrderBookSnapshot",
+    "RedisMarketDataCache",
+    "normalize_ohlcv",
+    "normalize_orderbook",
+    "normalize_timeframe",
+    "normalize_trades",
 ]

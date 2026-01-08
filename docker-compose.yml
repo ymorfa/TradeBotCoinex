@@ -1,0 +1,7 @@
+services:
+  tradebot:
+    build: .
+    image: tradebotcoinex:local
+    command: ["python", "tradebot_main.py"]
+    environment:
+      PYTHONUNBUFFERED: "1"
